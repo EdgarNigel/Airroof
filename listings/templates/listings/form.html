@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block head_title %}Add Listing || {{block.super}}{% endblock head_title %}
+
+{% block content %}
+<h2>Add your Rooftop</h2>
+{% if form.errors %}
+{{ form.errors }}
+{% endif %}
+<form method="POST"> {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}
+
+
+<!-- <input type="text" name="name" placeholder="What's the name of your rooftop?">
+<input type="text" name="location" placeholder="Where is your rooftop?">
+<input type="text" name="category" placeholder="Is it a private or a public location?"> -->
