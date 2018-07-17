@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -8,6 +9,7 @@ from .forms import ListingCreateForm
 from .models import Listing
 
 # Create your views here.
+
 def listing_createview(request):
     form = ListingCreateForm(request.POST or None)
     errors = None
@@ -51,7 +53,12 @@ class ListingDetailview(DetailView):
     #     obj = get_object_or_404(Listing, id=listing_id )
     #     return obj
 
-class ListingCreateView(CreateView):
+class ListingCreateView(LoginRequiredMixin, CreateView):
     form_class = ListingCreateForm
     template_name = 'listings/form.html'
     success_url = "/listings"
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.owner = self.request.user
+        return super(ListingCreateView, self).form_valid(form)

@@ -51,6 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'airrooftop.urls'
+LOGIN_URL = '/login/'
 
 TEMPLATES = [
     {
