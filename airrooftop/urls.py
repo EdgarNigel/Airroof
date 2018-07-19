@@ -16,7 +16,13 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.views.generic import TemplateView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import (
+    LoginView,
+    PasswordResetView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView,
+    PasswordResetDoneView
+)
 
 
 from listings.views import (
@@ -30,6 +36,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name="home.html")),
     url(r'login/$', LoginView.as_view(), name='login'),
+    url(r'login/password_reset/$', PasswordResetView.as_view(), name='password_reset'),
+    url(r'login/password_reset_confirm/$', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    url(r'login/password_reset_done$', PasswordResetDoneView.as_view(), name='password_reset_done'),
+    url(r'login/password_reset_complete/$', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     url(r'^listings/$', ListingListview.as_view()),
     url(r'^listings/create/$', ListingCreateView.as_view()),
     url(r'^listings/(?P<slug>[\w-]+)/$', ListingDetailview.as_view()),
