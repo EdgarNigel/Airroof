@@ -56,7 +56,6 @@ class ListingDetailview(DetailView):
 class ListingCreateView(LoginRequiredMixin, CreateView):
     form_class = ListingCreateForm
     template_name = 'listings/form.html'
-    success_url = "/listings"
 
     def form_valid(self, form):
         instance = form.save(commit=False)
