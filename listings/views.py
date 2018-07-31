@@ -3,34 +3,12 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
 
 from .forms import ListingCreateForm
 from .models import Listing
 
 # Create your views here.
-
-def listing_createview(request):
-    form = ListingCreateForm(request.POST or None)
-    errors = None
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect("/listings")
-    if form.errors:
-        errors = form.errors
-
-    template_name = 'listings/form.html'
-    context = {"form": form, "errors": errors}
-    return render(request, template_name, context)
-
-
-def listings_listview(request):
-    template_name = 'listings/listings_list.html'
-    queryset = Listing.objects.all()
-    context = {
-        "object_list": queryset
-    }
-    return render(request, template_name, context)
 
 class ListingListview(ListView):
     def get_queryset(self):
@@ -46,7 +24,8 @@ class ListingListview(ListView):
         return queryset
 
 class ListingDetailview(DetailView):
-    queryset = Listing.objects.all()
+        def get_queryset(self):
+            return Listing.objects.all()
 
     # def get_object(self, *args, **kwargs):
     #     listing_id = self.kwargs.get('listing_id')
@@ -61,3 +40,17 @@ class ListingCreateView(LoginRequiredMixin, CreateView):
         instance = form.save(commit=False)
         instance.owner = self.request.user
         return super(ListingCreateView, self).form_valid(form)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ListingCreateView, self).get_context_data(*args, **kwargs)
+        context['title'] = 'Add Rooftop'
+        return context
+
+class ListingUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = ListingCreateForm
+    template_name = 'listings/form.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ListingUpdateView, self).get_context_data(*args, **kwargs)
+        context['title'] = 'Add Rooftop'
+        return context

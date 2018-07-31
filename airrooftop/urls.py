@@ -26,10 +26,10 @@ from django.contrib.auth.views import (
 
 
 from listings.views import (
-    listings_listview,
     ListingListview,
     ListingDetailview,
-    ListingCreateView
+    ListingCreateView,
+    ListingUpdateView,
 )
 
 urlpatterns = [
