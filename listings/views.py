@@ -10,7 +10,7 @@ from .models import Listing
 
 # Create your views here.
 
-class ListingListview(ListView):
+class ListingListView(ListView):
     def get_queryset(self):
         print(self.kwargs)
         slug = self.kwargs.get("slug")
@@ -23,7 +23,7 @@ class ListingListview(ListView):
             queryset = Listing.objects.all()
         return queryset
 
-class ListingDetailview(DetailView):
+class ListingDetailView(DetailView):
         def get_queryset(self):
             return Listing.objects.all()
 
@@ -34,7 +34,7 @@ class ListingDetailview(DetailView):
 
 class ListingCreateView(LoginRequiredMixin, CreateView):
     form_class = ListingCreateForm
-    template_name = 'listings/form.html'
+    template_name = 'form.html'
 
     def form_valid(self, form):
         instance = form.save(commit=False)
@@ -52,5 +52,5 @@ class ListingUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListingUpdateView, self).get_context_data(*args, **kwargs)
-        context['title'] = 'Add Rooftop'
+        context['title'] = 'Update Rooftop'
         return context

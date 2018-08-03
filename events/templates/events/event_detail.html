@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block head_title %}Listings || {{block.super}}{% endblock head_title %}
+
+{% block content %}
+<h2>{{ object.name }} <small>{{ object.tags }}</small></h2>
+<p>{{ object.location }}</p>
+<p>{{ object.description }}</p>
+<p>{{ object.lineup }}</p>
+<p>Updated {{ object.updated|timesince }} ago</p>
+{% endblock %}

@@ -26,8 +26,8 @@ from django.contrib.auth.views import (
 
 
 from listings.views import (
-    ListingListview,
-    ListingDetailview,
+    ListingListView,
+    ListingDetailView,
     ListingCreateView,
     ListingUpdateView,
 )
@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'login/password_reset_done$', PasswordResetDoneView.as_view(), name='password_reset_done'),
     url(r'login/password_reset_complete/$', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     url(r'^rooftops/', include('listings.urls', namespace="listings")),
-    # url(r'^listings/commercial/$', CommercialListingListview.as_view()),
+    url(r'^events/', include('events.urls', namespace="events")),
     url(r'^about/$', TemplateView.as_view(template_name='about.html')),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html')),
 ]
