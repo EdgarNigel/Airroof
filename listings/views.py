@@ -48,9 +48,12 @@ class ListingCreateView(LoginRequiredMixin, CreateView):
 
 class ListingUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ListingCreateForm
-    template_name = 'listings/form.html'
+    template_name = 'form.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListingUpdateView, self).get_context_data(*args, **kwargs)
         context['title'] = 'Update Rooftop'
         return context
+
+    def get_queryset(self):
+        return Listing.objects.filter(owner=self.request.user)

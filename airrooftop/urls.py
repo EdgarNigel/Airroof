@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'login/password_reset_done$', PasswordResetDoneView.as_view(), name='password_reset_done'),
     url(r'login/password_reset_complete/$', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     url(r'^rooftops/', include('listings.urls', namespace="listings")),
+    url(r'^u/', include('profiles.urls', namespace="profiles")),    
     url(r'^events/', include('events.urls', namespace="events")),
     url(r'^about/$', TemplateView.as_view(template_name='about.html')),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html')),

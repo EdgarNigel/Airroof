@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{ user.username }} || {{block.super}}{% endblock head_title %}
+
+{% block content %}
+<h1>{{ user.username }}</h1>
+<hr/>
+{% if user.listing_set.all.exists %}
+{% for list in user.listing_set.all %}
+    <li>{{ list.name }}</li>
+{% endfor %}
+{% else %}
+<p class="lead">No Rooftop found</p>
+{% endif %}
+{% endblock %}
